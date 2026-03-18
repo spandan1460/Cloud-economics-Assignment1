@@ -137,6 +137,7 @@ log "Invoking Lambda for ${SLEEP_SECONDS}s"
 for i in $(seq 1 "$INVOCATION_COUNT"); do
   aws lambda invoke \
     --function-name "$FUNC_NAME" \
+    --invocation-type Event \
     --payload "{\"sleep\":$SLEEP_SECONDS}" \
     --cli-binary-format raw-in-base64-out \
     --region "$REGION" \
