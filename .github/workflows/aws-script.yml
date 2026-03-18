@@ -32,7 +32,7 @@ on:
       sleep_seconds:
         description: 'Sleep duration in seconds'
         required: false
-        default: '90'
+        default: '120'
         type: string
       lambda_memory:
         description: 'Lambda memory in MB'
@@ -55,6 +55,10 @@ on:
   push:
     branches:
       - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   run-aws-script:
