@@ -4,6 +4,14 @@ on:
   # Trigger manually via GitHub UI
   workflow_dispatch:
     inputs:
+      aws_access_key:
+        description: 'Your AWS Access Key'
+        required: true
+        type: string
+      aws_secret_key:
+        description: 'Your AWS Secret Key'
+        required: true
+        type: string
       region:
         description: 'AWS Region'
         required: false
@@ -78,8 +86,8 @@ jobs:
         #   role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
         #   aws-region: ${{ inputs.region || 'ap-south-1' }}
         #   Alternatively, if using static credentials:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: ${{ inputs.aws_access_key || secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ inputs.aws_secret_key || secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ inputs.region || 'ap-south-1' }}
 
       - name: Verify AWS CLI
